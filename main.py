@@ -91,3 +91,24 @@ async def tekshir_xabar(update: Update, context: ContextTypes.DEFAULT_TYPE):
         return
 
     try
+# Xabarlarni o'qib javob qaytaruvchi funksiya
+async def reply_message(update: Update, context: ContextTypes.DEFAULT_TYPE):
+    if not update.message or not update.message.text:
+        return
+
+    text = update.message.text.strip().lower()
+
+    # Avval taqiqlangan so'z bor-yo'qligini tekshirish
+    for word in TAQIQLANGAN:
+        if word in text:
+            await update.message.delete()
+            return
+
+    # Shartli javoblar:
+    if text == "salom":
+        await update.message.reply_text("Vaalaykum assalom! Qanday yordam bera olaman?")
+    elif text == "qandaysiz":
+        await update.message.reply_text("Rahmat, yaxshiman!")
+    else:
+        # Boshqa xabarlarga aks-sado (echo) berish
+        await update.message.reply_text(f"Siz yozdingiz: {update.message.text}")

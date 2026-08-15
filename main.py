@@ -1,4 +1,4 @@
-import os
+import os import google.generativeai as genai
 from telegram import Update, ChatPermissions
 from telegram.ext import (
     Application,
@@ -9,7 +9,7 @@ from telegram.ext import (
 )
 
 TOKEN = os.environ["BOT_TOKEN"]
-
+genai.configure(api_key=os.environ["GEMINI_API_KEY"])
 # Bu yerga taqiqlamoqchi bo'lgan so'zlarni yozing
 TAQIQLANGAN = [
     "uyatsiz_soz",

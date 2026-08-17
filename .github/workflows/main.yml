@@ -19,8 +19,7 @@ jobs:
         with:
           python-version: "3.12"
 
-      - name: Kutubxonalarni o'rnatish
-        run: pip install python-telegram-bot
+      - run: pip install -r requirements.txt
 
       - name: Botni ishga tushirish
         env:

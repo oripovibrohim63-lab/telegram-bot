@@ -1,4 +1,3 @@
-```python
 import os
 
 from telegram import Update, ChatPermissions

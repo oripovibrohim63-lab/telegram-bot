@@ -1,3 +1,6 @@
+runs:
+  using: 'node24'
+  main: 'main.js'
 AI_SYSTEM = """
 Sen Telegram guruhidagi universal AI yordamchi botsan.
 

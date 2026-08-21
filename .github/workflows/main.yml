@@ -11,8 +11,7 @@ jobs:
     runs-on: ubuntu-latest
 
     steps:
-      - name: Kodni yuklash
-         uses: actions/checkout@v4
+      - name: actions/checkout@v4
 
       - name: Python o'rnatish
         uses: actions/setup-python@v5

@@ -22,7 +22,7 @@ ai = genai.Client(api_key=GEMINI_API_KEY)
 MODEL = "gemini-flash-latest"
 
 logging.basicConfig(level=logging.INFO)
-logger = logging.getLogger(name)
+logger = logging.getLogger(__name__)
 
 # Har bir foydalanuvchining oxirgi suhbat xabarlari
 # Bot qayta ishga tushsa, bu vaqtinchalik xotira tozalanadi.

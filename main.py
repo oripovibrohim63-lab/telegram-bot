@@ -334,7 +334,7 @@ async def answer(
     if not question and media is None:
         return
 
-    status = await message.reply_text("🤔 Javob tayyorlayapman...")
+    status = await message.reply_text("🤔 tyupe...")
 
     try:
         if media:

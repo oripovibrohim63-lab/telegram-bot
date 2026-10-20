@@ -1,7 +1,5 @@
-python-telegram-bot
+
+python-telegram-bot>=22.0,<23.0
 google-genai
 requests
-
-google-genai
-python-telegram-bot>=22.0,<23.0
 Pillow

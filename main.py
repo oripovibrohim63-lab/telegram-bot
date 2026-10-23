@@ -1,9 +1,8 @@
-
-        if doc_mime.startswith(("audio/", "image/")):
+if doc_mime.startswith(("audio/", "image/")):
             media = doc
             mime_type = doc_mime
 
-    if media is None:
+   if media is None:
         return None
 
     if media.file_size and media.file_size > MAX_MEDIA_SIZE:

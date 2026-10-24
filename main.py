@@ -1,31 +1,3 @@
-if doc_mime.startswith(("audio/", "image/")):
-            media = doc
-            mime_type = doc_mime
-
-   if media is None:
-        return None
-
-    if media.file_size and media.file_size > MAX_MEDIA_SIZE:
-        raise ValueError(
-            "Fayl juda katta. 19 MB dan kichik fayl yuboring."
-        )
-
-    telegram_file = await media.get_file()
-    data = bytes(await telegram_file.download_as_bytearray())
-
-    if len(data) > MAX_MEDIA_SIZE:
-        raise ValueError("Yuklangan fayl hajmi limitdan oshdi.")
-
-    return data, mime_type
-
-
-async def safe_delete(message):
-    try:
-        await message.delete()
-    except TelegramError:
-        pass
-
-
 # =========================
 # /start
 # =========================
@@ -35,10 +7,12 @@ async def start(
     context: ContextTypes.DEFAULT_TYPE,
 ):
     music_keyboard = InlineKeyboardMarkup([
-        [InlineKeyboardButton(
-            "🎵 Smile qo‘shig‘ini tinglash",
-            url="https://oripovibrohim63-lab.github.io/telegram-bot/",
-        )]
+        [
+            InlineKeyboardButton(
+                "🎵 Smile qo‘shig‘ini tinglash",
+                url="https://oripovibrohim63-lab.github.io/telegram-bot/",
+            )
+        ]
     ])
 
     await update.effective_message.reply_text(
@@ -95,7 +69,7 @@ async def image_command(
 
     if not prompt:
         await message.reply_text(
-            "Misol:\n/image O'zbekiston tog'lari manzarasi"
+            "Misol:\n/image O‘zbekiston tog‘lari manzarasi"
         )
         return
 
@@ -118,7 +92,7 @@ async def image_command(
         sent = False
 
         for part in response.parts or []:
-            if part.inline_data:
+            if getattr(part, "inline_data", None):
                 picture = part.as_image()
                 buffer = io.BytesIO()
                 picture.save(buffer, format="PNG")
@@ -141,7 +115,6 @@ async def image_command(
 
     except Exception:
         logger.exception("Rasm yaratishda xato")
-
         await status.edit_text(
             "Rasm yaratilmadi. API kaliti, model nomi, "
             "hisob limiti va model imkoniyatlarini tekshiring."
@@ -185,7 +158,15 @@ async def translate_command(
             "Quyidagi matnni "
             + language
             + " tiliga tarjima qil. Ma'nosini saqla. "
-              "Faqat tarjimani qaytar:\n\n"
+            "Faqat tarjimani qaytar:\n\n"
             + original
         )
+
         await send_long(message, result)
+
+    except Exception:
+        logger.exception("Tarjima qilishda xato")
+        await message.reply_text(
+            "Tarjima bajarilmadi. AI API kaliti, "
+            "model va limitni tekshiring."
+        )
